@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { API_URL } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   async function handleLogin(event: React.FormEvent) {
     event.preventDefault();
@@ -24,33 +25,23 @@ function Login() {
     const data = await response.json();
 
     if (response.ok) {
-        localStorage.setItem("token", data.token);
-        navigate("/dashboard");
+      localStorage.setItem("token", data.token);
+      navigate("/dashboard");
     }
 
     console.log(data);
   }
 
   return (
-    <form onSubmit={handleLogin}>
-      <h1>Entrar</h1>
+    <div className="flex min-h-screen flex-col gap-4 p-6">
+      <Button>Botão primário</Button>
 
-      <input
-        type="email"
-        placeholder="E-mail"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-      />
+      <Button variant="secondary">Botão secundário</Button>
 
-      <input
-        type="password"
-        placeholder="Senha"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-      />
+      <Button variant="outline">Botão outline</Button>
 
-      <button type="submit">Entrar</button>
-    </form>
+      <Button variant="text">Botão texto</Button>
+    </div>
   );
 }
 
