@@ -13,28 +13,43 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   async function handleLogin(event: React.FormEvent) {
     event.preventDefault();
 
-    const response = await fetch(`${API_URL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+    setError("");
 
-    const data = await response.json();
+    try {
+      setIsLoading(true);
 
-    if (response.ok) {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message ?? "Não foi possível entrar.");
+        return;
+      }
+
       localStorage.setItem("token", data.token);
-      navigate("/dashboard");
-    }
 
-    console.log(data);
+      navigate("/dashboard");
+    } catch {
+      setError("Não foi possível conectar ao servidor.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -103,8 +118,14 @@ function Login() {
             </div>
           </div>
 
-          <Button type="submit" className="w-full font-bold">
-            Entrar
+          {error && <p className="text-body text-danger">{error}</p>}
+
+          <Button
+            type="submit"
+            className="w-full font-bold"
+            disabled={isLoading}
+          >
+            {isLoading ? "Entrando..." : "Entrar"}
           </Button>
         </form>
 
