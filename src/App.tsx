@@ -6,6 +6,8 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import CreateDeck from "./pages/CreateDeck";
 import DeckDetails from "./pages/DeckDetails";
 import CreateCard from "./pages/CreateCard";
+import StudyMode from "./pages/StudyMode";
+import StudySession from "./pages/StudySession";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/decks/new" element={<CreateDeck />} />
         <Route path="/decks/:deckId" element={<DeckDetails />} />
         <Route path="/decks/:deckId/cards/new" element={<CreateCard />} />
+        <Route path="/decks/:deckId/study" element={<StudyMode />} />
+        <Route path="/decks/:deckId/study/:mode" element={<StudySession />} />
       </Routes>
     </BrowserRouter>
   );

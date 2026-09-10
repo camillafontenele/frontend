@@ -19,7 +19,7 @@ function DeckDetails() {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     async function loadCards() {
       const token = localStorage.getItem("token");
@@ -46,7 +46,12 @@ function DeckDetails() {
   return (
     <main>
       <h1>Detalhes do baralho</h1>
-
+      <Button
+        variant="primary"
+        onClick={() => navigate(`/decks/${deckId}/study`)}
+      >
+        Estudar
+      </Button>
       {cards.length === 0 ? (
         <p>Este baralho ainda não possui cards.</p>
       ) : (
