@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { API_URL } from "../services/api";
 import { Button } from "@/components/ui/button";
-import memDeckLogo from "@/assets/images/logos/memdeck-logo-principal.svg";
+import memDeckLogo from "@/assets/images/logos/memdeck-app-icon.svg";
 import { useNavigate } from "react-router-dom";
 import {
   BarChart3,
